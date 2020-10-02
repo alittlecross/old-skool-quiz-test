@@ -1,0 +1,39 @@
+{
+  "name": "old-skool-quiz-test",
+  "version": "1.0.0",
+  "description": "A project to test old-skool-quiz.",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/wdio ./config"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alittlecross/old-skool-quiz-test.git"
+  },
+  "author": "alittlecross",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alittlecross/old-skool-quiz-test/issues"
+  },
+  "homepage": "https://github.com/alittlecross/old-skool-quiz-test#readme",
+  "dependencies": {
+    "@wdio/cli": "^6.1.17",
+    "@wdio/local-runner": "^6.1.17",
+    "@wdio/mocha-framework": "^6.1.17",
+    "@wdio/selenium-standalone-service": "^6.1.14",
+    "@wdio/spec-reporter": "^6.1.14",
+    "@wdio/sync": "^6.1.14",
+    "clipboardy": "^2.3.0"
+  },
+  "standard": {
+    "globals": [
+      "$",
+      "$$",
+      "ava",
+      "boo",
+      "dot",
+      "kit",
+      "browser"
+    ]
+  }
+}
