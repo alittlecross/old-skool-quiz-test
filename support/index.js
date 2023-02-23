@@ -29,10 +29,12 @@ module.exports = {
     client.$('span.corner-link').click()
   },
 
-  createQuiz: client => {
+  createQuiz: function (client) {
     client.url('/create')
     client.$('input').setValue('NorEasWorFroHomSoc')
     client.$('button.rubber').click()
+
+    this.pause()
   },
 
   endCountdown: function (client) {
@@ -62,6 +64,7 @@ module.exports = {
   imgUrl: 'https://sites.temple.edu/thehootnews/files/2018/04/baby-driver.jpg',
 
   joinQuiz: function (client, url, name) {
+    console.log(url)
     client.url(url)
     client.$('input[name=name]').setValue(name)
     client.$('button.rubber').click()

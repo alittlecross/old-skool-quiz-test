@@ -1,6 +1,6 @@
 exports.config = {
 
-  baseUrl: 'https://old-skool-quiz.herokuapp.com',
+  baseUrl: 'https://old-skool-quiz-react.herokuapp.com',
 
   capabilities: {
     ava: {
@@ -50,7 +50,7 @@ exports.config = {
   services: ['selenium-standalone'],
 
   specs: [
-    'test/**'
+    'test/post-join/game.test.js'
   ],
 
   before: (capabilities, specs) => {

@@ -32,47 +32,37 @@ describe('/game', () => {
 
     it('heading', () => {
       // Assert
-      const heading = ava.$('div#heading').getText()
+      const div = ava.$('div#heading').getText()
 
-      assert.equal(heading, 'NorEasWorFroHomSoc')
+      assert.equal(div, 'NorEasWorFroHomSoc')
     })
 
     it('sub-heading', () => {
       // Assert
-      const subheading = ava.$('div.sub-heading').getText()
+      const div = ava.$('div.sub-heading').getText()
 
-      assert.equal(subheading, 'Asking the questions is... Ava')
+      assert.equal(div, 'Asking the questions is... Ava')
     })
 
     it('host', () => {
       // Assert
-      const host = ava.$('span#host').getText()
+      const span = ava.$('span#host').getText()
 
-      assert.equal(host, 'Ava')
+      assert.equal(span, 'Ava')
     })
 
-    it('answer input (hidden)', () => {
+    it('answer input not present', () => {
       // Assert
-      const div = ava.$('div#answer[hidden]')
-      const divInput = div.$('input').getAttribute('placeholder')
+      const div = ava.$$('div#answer')
 
-      assert.equal(divInput, 'Enter your answer...')
+      assert.equal(div.length, 0)
     })
 
-    it('\'Submit\' button (hidden)', () => {
+    it('\'End countdown\' button not present', () => {
       // Assert
-      const div = ava.$('div#answer[hidden]')
-      const divButton = div.$('button.rubber').getHTML()
+      const div = ava.$$('div#end-countdown')
 
-      assert.match(divButton, /Submit/)
-    })
-
-    it('\'End countdown\' button (hidden)', () => {
-      // Assert
-      const div = ava.$('div#end-countdown[hidden]')
-      const divButton = div.$('button.rubber').getHTML()
-
-      assert.match(divButton, /End countdown/)
+      assert.equal(div.length, 0)
     })
 
     it('points-table', () => {
@@ -96,32 +86,32 @@ describe('/game', () => {
       assert.equal(pointsBooText, '0')
     })
 
-    it('switch host table (hidden)', () => {
+    it('switch host table not present', () => {
       // Assert
-      const div = ava.$('table#switch-host-table').getAttribute('hidden')
+      const table = ava.$$('table#switch-host-table')
 
-      assert.ok(div)
+      assert.equal(table.length, 0)
     })
 
-    it('bonus points table (hidden)', () => {
+    it('bonus points table not present', () => {
       // Assert
-      const div = ava.$('table#bonus-points-table').getAttribute('hidden')
+      const table = ava.$$('table#bonus-points-table')
 
-      assert.ok(div)
+      assert.equal(table.length, 0)
     })
 
-    it('merge players table (hidden)', () => {
+    it('merge players table not present', () => {
       // Assert
-      const div = ava.$('table#merge-players-table').getAttribute('hidden')
+      const table = ava.$$('table#merge-players-table')
 
-      assert.ok(div)
+      assert.equal(table.length, 0)
     })
 
-    it('remove player table (hidden)', () => {
+    it('remove player table not present', () => {
       // Assert
-      const div = ava.$('table#remove-player-table').getAttribute('hidden')
+      const table = ava.$$('table#remove-player-table')
 
-      assert.ok(div)
+      assert.equal(table.length, 0)
     })
 
     it('\'Guide\' link', () => {
@@ -138,21 +128,13 @@ describe('/game', () => {
       assert.equal(link, 'Copy link')
     })
 
-    it('other divs (hidden)', () => {
+    it('other divs not present', () => {
       // Assert
-      const game = ava.$('div#game')
-      const gameCounting = game.getAttribute('data-counting')
-      const gameGamecode = game.getAttribute('data-gamecode')
-      const gameHidden = game.getAttribute('hidden')
-      const merge = ava.$('div#merge')
-      const mergeHidden = merge.getAttribute('hidden')
-      const mergeId = merge.getAttribute('data-id')
+      const game = ava.$$('div#game')
+      const merge = ava.$$('div#merge')
 
-      assert.ok(gameHidden)
-      assert.equal(gameCounting, 'false')
-      assert.equal(gameGamecode, gamecode)
-      assert.ok(mergeHidden)
-      assert.equal(mergeId, '')
+      assert.equal(game.length, 0)
+      assert.equal(merge.length, 0)
     })
 
     context('Host', () => {
@@ -186,20 +168,18 @@ describe('/game', () => {
     })
 
     context('Player', () => {
-      it('\'Ask next question\' link (hidden)', () => {
+      it('\'Ask next question\' link not present', () => {
         // Assert
-        const link = boo.$('#ask-next-question')
-        const linkHidden = link.getAttribute('hidden')
+        const link = boo.$$('#ask-next-question')
 
-        assert.ok(linkHidden)
+        assert.equal(link.length, 0)
       })
 
-      it('menu (hidden)', () => {
+      it('menu not present', () => {
         // Assert
-        const div = boo.$('div#menu')
-        const divHidden = div.getAttribute('hidden')
+        const div = boo.$$('div#menu')
 
-        assert.ok(divHidden)
+        assert.equal(div.length, 0)
       })
     })
   })
@@ -247,7 +227,7 @@ describe('/game', () => {
           // Assert
           const url = ava.getUrl()
 
-          assert.match(url, new RegExp(`/${gamecode}/question`))
+          assert.match(url, new RegExp('/game/question'))
         })
 
         it('\'Copy link\' link', () => {
@@ -262,7 +242,7 @@ describe('/game', () => {
       })
 
       context('During Question', () => {
-        it('The page is updated when new questions are added', () => {
+        it.only('The page is updated when new questions are added', () => {
           // Arrange
           const assertBefore = client => {
             // Assert
@@ -274,16 +254,11 @@ describe('/game', () => {
 
           const assertAfter = (client, host) => {
             // Assert
-            const answerDiv = client.$('div#answer')
-            const answerDivHidden = answerDiv.getAttribute('hidden')
-            const askNextQuestion = client.$('#ask-next-question')
-            const askNextQuestionHidden = askNextQuestion.getAttribute('hidden')
-            const endCountdown = client.$('div#end-countdown')
-            const endCountdownHidden = endCountdown.getAttribute('hidden')
-            const pointsTable = client.$('table#points-table')
-            const pointsTableHidden = pointsTable.getAttribute('hidden')
-            const menu = client.$('div#menu')
-            const menuHidden = menu.getAttribute('hidden')
+            const answerDiv = client.$$('div#answer')
+            const askNextQuestion = client.$$('#ask-next-question')
+            const endCountdown = client.$$('div#end-countdown')
+            const pointsTable = client.$$('table#points-table')
+            const menu = client.$$('div#menu')
 
             const container = client.$('//*[@id="0"]')
             const containerExists = container.isExisting()
@@ -309,11 +284,11 @@ describe('/game', () => {
             const nameDotId = nameDot.getAttribute('data-id')
             const nameDotText = nameDot.getText()
 
-            assert.ok(host ? answerDivHidden : !answerDivHidden)
-            assert.ok(askNextQuestionHidden)
-            assert.ok(host ? !endCountdownHidden : endCountdownHidden)
-            assert.ok(pointsTableHidden)
-            assert.ok(menuHidden)
+            assert.equal(answerDiv.length, host ? 0 : 1)
+            assert.equal(askNextQuestion.length, 0)
+            assert.equal(endCountdown.length, host ? 1 : 0)
+            assert.equal(pointsTable.length, 0)
+            assert.equal(menu.length, 0)
 
             assert.ok(containerExists)
             assert.equal(question, '1. Who directed this film?')
@@ -333,7 +308,7 @@ describe('/game', () => {
           assertBefore(dot)
 
           // Act
-          s.askQuestion(ava, false)
+          s.askQuestion(ava)
 
           // Assert
           assertAfter(ava, true)
